@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="8720274f-135d-4f50-ad26-2cffa13a8214" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="a2570510-16ac-496d-9699-950dcb8fc928" >
+		<http:request-connection host="dummy.restapiexample.com" >
+		</http:request-connection>
+	</http:request-config>
+	<flow name="testcicdFlow" doc:id="04ba5b51-ffb0-43fa-ba51-12005a6e60bf" >
+		<http:listener doc:name="Listener" doc:id="fda3518c-50ab-4547-b2ec-1c61991c0d05" config-ref="HTTP_Listener_config" path="/test/{id}"/>
+		<logger level="INFO" doc:name="Logger" doc:id="15949ac5-6185-410b-bae9-22768372dc37" message="#[payload]"/>
+		<http:request method="GET" doc:name="Request" doc:id="39a723ae-946f-4cec-9d8a-fbf101f44d0c" config-ref="HTTP_Request_configuration" path="/api/v1/employee/{id}">
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"id" : attributes.uriParams.id
+}]]]></http:uri-params>
+		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="40a32484-620f-47a5-bf25-1fb6c6f7ad3f" message="#[payload]"/>
+	</flow>
+</mule>
