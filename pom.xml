@@ -32,9 +32,10 @@
 				<extensions>true</extensions>
 				<configuration>
 				<cloudHubDeployment>
+				<uri>https://anypoint.mulesoft.com</uri>
 				<username>ShivamApisero123</username>
 				<password>Cool@2406</password>
-				<enviornment>Sanbox</enviornment>
+				<enviornment>Sandbox</enviornment>
 				<workers>1</workers>
 				<applicatioName>testcicd</applicatioName>
 				<muleVersion>4.3.0</muleVersion>
